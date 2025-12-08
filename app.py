@@ -33,20 +33,5 @@ def toggle_task(task_id):
             break
     return redirect(url_for("home"))
 
-@app.route("/edit/<int:task_id>", methods=["GET", "POST"])
-def edit_task(task_id): 
-    if request.method == "POST":
-        new_title = request.form.get("task", "").strip()
-        for t in tasks:
-            if t["id"] == task_id and new_title:
-                t["title"] = new_title
-                break
-        return redirect(url_for("home"))
-    else:
-        for t in tasks:
-            if t["id"] == task_id:
-                return render_template("index.html", tasks=tasks, edit_task=t)
-        return redirect(url_for("home"))
-
 if __name__ == "__main__":
     app.run(debug=True)
